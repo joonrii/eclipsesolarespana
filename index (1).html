@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Verás el eclipse? · 12 agosto 2026 · España</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-deep:#080A1F;
+    --sky:#0E1330;
+    --twilight:#241a52;
+    --horizon:#3a2a4d;
+    --corona:#F2EFE2;
+    --silver:#C9D2E8;
+    --amber:#F0A830;
+    --amber-soft:#f4c56b;
+    --violet:#8B7BD8;
+    --muted:#8C93B5;
+    --line:rgba(201,210,232,0.14);
+    --total:#F0A830;
+    --parcial:#8B7BD8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--silver);
+    background:
+      radial-gradient(120% 80% at 50% 118%, rgba(240,168,48,0.16) 0%, rgba(240,168,48,0) 42%),
+      linear-gradient(180deg, var(--sky-deep) 0%, var(--sky) 40%, var(--twilight) 78%, var(--horizon) 100%);
+    min-height:100vh;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.7}
+  .wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:32px 22px 80px}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--amber-soft);margin-bottom:18px;
+  }
+  h1{
+    font-family:'Fraunces',serif;font-weight:500;font-optical-sizing:auto;
+    font-size:clamp(2.3rem,8vw,3.5rem);line-height:1.02;color:var(--corona);
+    letter-spacing:-.01em;margin-bottom:14px;
+  }
+  h1 em{font-style:italic;color:var(--amber-soft)}
+  .lede{color:var(--muted);font-size:1.02rem;max-width:44ch;margin-bottom:26px}
+
+  .countdown{
+    display:flex;gap:14px;font-family:'IBM Plex Mono',monospace;margin-bottom:34px;
+  }
+  .cd-unit{text-align:center}
+  .cd-num{font-size:1.7rem;color:var(--corona);font-weight:500;line-height:1}
+  .cd-lab{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+  /* Eclipse visual */
+  .scene{display:flex;justify-content:center;margin:8px 0 30px}
+  .eclipse{width:min(230px,62vw);height:min(230px,62vw);position:relative}
+  .eclipse svg{width:100%;height:100%;display:block}
+
+  /* Selector */
+  .picker-label{font-size:.8rem;letter-spacing:.05em;color:var(--muted);margin-bottom:8px;display:block}
+  .select-shell{position:relative;margin-bottom:24px}
+  select{
+    width:100%;appearance:none;-webkit-appearance:none;
+    background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:14px;
+    color:var(--corona);font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:500;
+    padding:16px 46px 16px 18px;cursor:pointer;
+  }
+  select:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .select-shell::after{
+    content:"";position:absolute;right:20px;top:50%;width:9px;height:9px;
+    border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+    transform:translateY(-70%) rotate(45deg);pointer-events:none;
+  }
+
+  /* Result */
+  .result{
+    background:linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+    border:1px solid var(--line);border-radius:20px;padding:24px 22px;margin-bottom:16px;
+  }
+  .verdict{display:flex;align-items:baseline;gap:12px;margin-bottom:4px;flex-wrap:wrap}
+  .badge{
+    font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.16em;
+    text-transform:uppercase;padding:5px 11px;border-radius:100px;font-weight:500;
+  }
+  .badge.total{background:rgba(240,168,48,0.16);color:var(--amber-soft);border:1px solid rgba(240,168,48,0.4)}
+  .badge.parcial{background:rgba(139,123,216,0.16);color:var(--violet);border:1px solid rgba(139,123,216,0.4)}
+  .verdict h2{font-family:'Fraunces',serif;font-weight:500;font-size:1.45rem;color:var(--corona)}
+  .verdict-sub{color:var(--muted);font-size:.95rem;margin-bottom:20px}
+
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-radius:14px;overflow:hidden}
+  .stat{background:var(--sky);padding:15px 16px}
+  .stat .k{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .stat .v{font-family:'IBM Plex Mono',monospace;font-size:1.15rem;color:var(--corona);font-weight:500}
+  .stat.wide{grid-column:1 / -1}
+
+  .travel{
+    margin-top:14px;padding:14px 16px;border-radius:12px;
+    background:rgba(139,123,216,0.1);border:1px solid rgba(139,123,216,0.25);
+    font-size:.92rem;color:var(--silver);
+  }
+  .travel b{color:var(--corona)}
+
+  /* Safety */
+  .safety{
+    display:flex;gap:14px;align-items:flex-start;
+    background:rgba(240,168,48,0.09);border:1px solid rgba(240,168,48,0.32);
+    border-radius:16px;padding:16px 18px;margin:16px 0;
+  }
+  .safety .icon{flex:none;font-size:1.3rem;line-height:1.2}
+  .safety p{font-size:.9rem;color:var(--amber-soft)}
+  .safety b{color:var(--corona)}
+
+  .cta{
+    display:block;text-align:center;text-decoration:none;
+    background:var(--amber);color:#1a1205;font-weight:600;font-size:1.02rem;
+    padding:16px;border-radius:14px;margin-bottom:10px;transition:transform .15s ease, filter .15s ease;
+  }
+  .cta:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .cta-note{text-align:center;font-size:.74rem;color:var(--muted);margin-bottom:28px}
+
+  .perseids{
+    border-top:1px solid var(--line);padding-top:22px;margin-top:8px;
+    font-size:.92rem;color:var(--muted);
+  }
+  .perseids b{color:var(--silver)}
+
+  footer{margin-top:30px;font-size:.76rem;color:var(--muted);line-height:1.6}
+  footer a{color:var(--violet)}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important}
+  }
+</style>
+</head>
+<body>
+<svg class="stars" aria-hidden="true"></svg>
+<div class="wrap">
+
+  <div class="eyebrow">Miércoles 12 · Agosto · 2026 · España</div>
+  <h1>¿Verás el <em>eclipse total</em> desde tu ciudad?</h1>
+  <p class="lede">El primer eclipse total de Sol en la península en más de un siglo. Elige tu ciudad y descúbrelo.</p>
+
+  <div class="countdown" id="countdown" aria-label="Cuenta atrás para el eclipse">
+    <div class="cd-unit"><div class="cd-num" id="cd-d">–</div><div class="cd-lab">días</div></div>
+    <div class="cd-unit"><div class="cd-num" id="cd-h">–</div><div class="cd-lab">horas</div></div>
+    <div class="cd-unit"><div class="cd-num" id="cd-m">–</div><div class="cd-lab">min</div></div>
+    <div class="cd-unit"><div class="cd-num" id="cd-s">–</div><div class="cd-lab">seg</div></div>
+  </div>
+
+  <div class="scene">
+    <div class="eclipse">
+      <svg viewBox="0 0 200 200" id="eclipseSvg" role="img" aria-label="Representación del eclipse">
+        <defs>
+          <radialGradient id="coronaG" cx="50%" cy="50%" r="50%">
+            <stop offset="55%" stop-color="rgba(242,239,226,0)"/>
+            <stop offset="72%" stop-color="rgba(242,239,226,0.55)"/>
+            <stop offset="100%" stop-color="rgba(242,239,226,0)"/>
+          </radialGradient>
+          <radialGradient id="sunG" cx="50%" cy="50%" r="50%">
+            <stop offset="60%" stop-color="#F7C766"/>
+            <stop offset="100%" stop-color="#F0A830"/>
+          </radialGradient>
+        </defs>
+        <circle id="corona" cx="100" cy="100" r="86" fill="url(#coronaG)" opacity="0"/>
+        <circle id="sun" cx="100" cy="100" r="52" fill="url(#sunG)"/>
+        <circle id="moon" cx="70" cy="100" r="52" fill="#0E1330"/>
+        <circle id="ring" cx="100" cy="100" r="52" fill="none" stroke="#F2EFE2" stroke-width="0" opacity="0"/>
+      </svg>
+    </div>
+  </div>
+
+  <label class="picker-label" for="city">Tu ciudad</label>
+  <div class="select-shell">
+    <select id="city" aria-label="Selecciona tu ciudad"></select>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <div class="safety">
+    <span class="icon">🕶️</span>
+    <p><b>Nunca mires al Sol sin gafas de eclipse homologadas (ISO 12312-2).</b> Las gafas de sol normales no valen. Solo dentro de la franja de totalidad, y solo durante los segundos en que el Sol quede 100% cubierto, es seguro quitárselas.</p>
+  </div>
+
+  <a class="cta" href="#" id="glassesCta" target="_blank" rel="noopener">Comprar gafas de eclipse homologadas →</a>
+  <p class="cta-note">Enlace de afiliado · aún de ejemplo — aquí irá tu enlace real</p>
+
+  <div class="perseids">
+    <b>Bonus:</b> esa misma noche coincide con el máximo de las Perseidas. Si te quedas en el sitio de observación tras el eclipse, puedes rematar la noche con lluvia de estrellas.
+  </div>
+
+  <footer>
+    Horarios y altura del Sol aproximados, para orientarte. Confirma los datos exactos de tu localidad en el
+    <a href="https://eclipses.ign.es/eclipse-total-sol-de-12-de-agosto-2026.html" target="_blank" rel="noopener">Instituto Geográfico Nacional</a>.
+    Desde España el eclipse ocurre muy cerca de la puesta de Sol, así que necesitas buena vista hacia el <b>oeste</b>.
+  </footer>
+
+</div>
+
+<script>
+  // ---- Datos de ciudades (aproximados; verificar en IGN antes de publicar) ----
+  const cities = [
+    {n:"A Coruña", t:"total", max:"20:28", dur:"~1 min 16 s", alt:"12°"},
+    {n:"Gijón",    t:"total", max:"20:29", dur:"~1 min",      alt:"11°"},
+    {n:"Oviedo",   t:"total", max:"20:29", dur:"~1 min",      alt:"11°"},
+    {n:"Santander",t:"total", max:"20:30", dur:"~1 min",      alt:"10°"},
+    {n:"Bilbao",   t:"total", max:"20:30", dur:"~1 min 30 s", alt:"9°"},
+    {n:"Vitoria-Gasteiz", t:"total", max:"20:30", dur:"~1 min", alt:"9°"},
+    {n:"León",     t:"total", max:"20:29", dur:"~1 min",      alt:"11°"},
+    {n:"Burgos",   t:"total", max:"20:30", dur:"~1 min",      alt:"10°"},
+    {n:"Valladolid",t:"total",max:"20:29", dur:"~1 min",      alt:"10°"},
+    {n:"Zamora",   t:"total", max:"20:28", dur:"~1 min 17 s", alt:"11°"},
+    {n:"Zaragoza", t:"total", max:"20:31", dur:"~1 min 30 s", alt:"8°"},
+    {n:"Teruel",   t:"total", max:"20:31", dur:"~1 min",      alt:"7°"},
+    {n:"Castellón",t:"total", max:"20:32", dur:"~1 min",      alt:"6°"},
+    {n:"València", t:"total", max:"20:32", dur:"~1 min 30 s", alt:"6°"},
+    {n:"Palma",    t:"total", max:"20:33", dur:"~1 min 30 s", alt:"5°"},
+    {n:"Madrid",   t:"parcial", pct:"~99,9%", max:"20:30", near:"Ávila o Segovia (~1 h)"},
+    {n:"Barcelona",t:"parcial", pct:"muy alta", max:"20:32", near:"Lleida o Tarragona (~1 h)"},
+    {n:"Sevilla",  t:"parcial", pct:"parcial", max:"20:26", near:"la franja queda lejos"},
+    {n:"Málaga",   t:"parcial", pct:"parcial", max:"20:27", near:"la franja queda lejos"},
+  ].sort((a,b)=>a.n.localeCompare(b.n,'es'));
+
+  // ---- Rellenar el selector ----
+  const sel = document.getElementById('city');
+  cities.forEach((c,i)=>{
+    const o=document.createElement('option');
+    o.value=i; o.textContent=c.n; sel.appendChild(o);
+  });
+
+  // ---- SVG del eclipse ----
+  const moon=document.getElementById('moon');
+  const corona=document.getElementById('corona');
+  const ring=document.getElementById('ring');
+  function drawEclipse(isTotal){
+    if(isTotal){
+      moon.setAttribute('cx',100);
+      corona.setAttribute('opacity',1);
+      ring.setAttribute('opacity',0);
+    }else{
+      moon.setAttribute('cx',72);      // eclipse muy avanzado pero no total
+      corona.setAttribute('opacity',0);
+      ring.setAttribute('opacity',0);
+    }
+  }
+
+  // ---- Render del resultado ----
+  const result=document.getElementById('result');
+  function render(i){
+    const c=cities[i];
+    const isTotal=c.t==='total';
+    drawEclipse(isTotal);
+    let html='';
+    if(isTotal){
+      html=`
+        <div class="verdict">
+          <span class="badge total">Totalidad</span>
+          <h2>Sí — desde ${c.n} verás la totalidad</h2>
+        </div>
+        <p class="verdict-sub">Estás dentro de la franja. El Sol se ocultará por completo unos segundos: cielo oscuro, corona visible y estrellas de día.</p>
+        <div class="stats">
+          <div class="stat"><div class="k">Máximo (aprox.)</div><div class="v">${c.max}</div></div>
+          <div class="stat"><div class="k">Dura la totalidad</div><div class="v">${c.dur}</div></div>
+          <div class="stat"><div class="k">Altura del Sol</div><div class="v">${c.alt}</div></div>
+          <div class="stat"><div class="k">Hacia dónde mirar</div><div class="v">Oeste ↓</div></div>
+        </div>`;
+    }else{
+      html=`
+        <div class="verdict">
+          <span class="badge parcial">Parcial</span>
+          <h2>Casi — desde ${c.n} será parcial</h2>
+        </div>
+        <p class="verdict-sub">El Sol no llega a taparse del todo, así que te pierdes la corona y la oscuridad. Ocultación: ${c.pct}.</p>
+        <div class="stats">
+          <div class="stat"><div class="k">Máximo (aprox.)</div><div class="v">${c.max}</div></div>
+          <div class="stat"><div class="k">Ocultación</div><div class="v">${c.pct}</div></div>
+        </div>
+        <div class="travel">Para vivir la <b>totalidad</b> merece la pena desplazarse a la franja: ${c.near}.</div>`;
+    }
+    result.innerHTML=html;
+  }
+  sel.addEventListener('change',()=>render(sel.value));
+  // Arranca en Bilbao si existe, si no la primera
+  const start=cities.findIndex(c=>c.n==='Bilbao');
+  sel.value = start>=0?start:0;
+  render(sel.value);
+
+  // ---- Cuenta atrás (12 ago 2026, 20:28 CEST = 18:28 UTC) ----
+  const target=new Date('2026-08-12T18:28:00Z').getTime();
+  function tick(){
+    const now=Date.now();let d=Math.max(0,target-now);
+    const days=Math.floor(d/864e5);d-=days*864e5;
+    const h=Math.floor(d/36e5);d-=h*36e5;
+    const m=Math.floor(d/6e4);d-=m*6e4;
+    const s=Math.floor(d/1e3);
+    document.getElementById('cd-d').textContent=days;
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  }
+  tick();setInterval(tick,1000);
+
+  // ---- Estrellas de fondo ----
+  const starsSvg=document.querySelector('.stars');
+  const W=window.innerWidth,H=window.innerHeight;
+  let s='';
+  for(let i=0;i<70;i++){
+    const x=Math.random()*W,y=Math.random()*H*0.75,r=Math.random()*1.1+0.3,o=Math.random()*0.6+0.2;
+    s+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(1)}" fill="#E8ECF4" opacity="${o.toFixed(2)}"/>`;
+  }
+  starsSvg.innerHTML=s;
+  starsSvg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+</script>
+</body>
+</html>
