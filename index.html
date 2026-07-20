@@ -1,142 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WT4RXE9EWJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WT4RXE9EWJ');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¿Verás el eclipse? · 12 agosto 2026 · España</title>
+<meta name="google-site-verification" content="qPFKZhNQ71R0KIQnwD3gVRaw7CgC1tRpQnsCgZ7FGAI" />
+<title>¿Verás el eclipse total? Consulta tu ciudad · 12 agosto 2026</title>
+<meta name="description" content="El 12 de agosto de 2026 España vive su primer eclipse solar total en más de un siglo. Escribe tu ciudad y descubre si verás la totalidad, a qué hora y durante cuánto tiempo.">
+<meta name="robots" content="index, follow">
+<meta name="google-site-verification" content="qPFKZhNQ71R0KIQnwD3gVRaw7CgC1tRpQnsCgZ7FGAI" />
+<link rel="canonical" href="https://eclipsesolarespana-jonri.vercel.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="¿Verás el eclipse total desde tu ciudad? · 12 agosto 2026">
+<meta property="og:description" content="El primer eclipse total de Sol visible en la península en más de un siglo. Escribe tu ciudad y descúbrelo al instante.">
+<meta property="og:url" content="https://eclipsesolarespana-jonri.vercel.app/">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Eclipse España 2026">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="¿Verás el eclipse total desde tu ciudad?">
+<meta name="twitter:description" content="12 de agosto de 2026 · el primer eclipse total en la península en más de un siglo.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --sky-deep:#080A1F;
-    --sky:#0E1330;
-    --twilight:#241a52;
-    --horizon:#3a2a4d;
-    --corona:#F2EFE2;
-    --silver:#C9D2E8;
-    --amber:#F0A830;
-    --amber-soft:#f4c56b;
-    --violet:#8B7BD8;
-    --muted:#8C93B5;
-    --line:rgba(201,210,232,0.14);
-    --total:#F0A830;
-    --parcial:#8B7BD8;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    font-family:'Inter',system-ui,sans-serif;
-    color:var(--silver);
-    background:
-      radial-gradient(120% 80% at 50% 118%, rgba(240,168,48,0.16) 0%, rgba(240,168,48,0) 42%),
-      linear-gradient(180deg, var(--sky-deep) 0%, var(--sky) 40%, var(--twilight) 78%, var(--horizon) 100%);
-    min-height:100vh;
-    line-height:1.55;
-    overflow-x:hidden;
-  }
-  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.7}
-  .wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:32px 22px 80px}
 
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.28em;
-    text-transform:uppercase;color:var(--amber-soft);margin-bottom:18px;
-  }
-  h1{
-    font-family:'Fraunces',serif;font-weight:500;font-optical-sizing:auto;
-    font-size:clamp(2.3rem,8vw,3.5rem);line-height:1.02;color:var(--corona);
-    letter-spacing:-.01em;margin-bottom:14px;
-  }
-  h1 em{font-style:italic;color:var(--amber-soft)}
-  .lede{color:var(--muted);font-size:1.02rem;max-width:44ch;margin-bottom:26px}
-
-  .countdown{
-    display:flex;gap:14px;font-family:'IBM Plex Mono',monospace;margin-bottom:34px;
-  }
-  .cd-unit{text-align:center}
-  .cd-num{font-size:1.7rem;color:var(--corona);font-weight:500;line-height:1}
-  .cd-lab{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:6px}
-
-  /* Eclipse visual */
-  .scene{display:flex;justify-content:center;margin:8px 0 30px}
-  .eclipse{width:min(230px,62vw);height:min(230px,62vw);position:relative}
-  .eclipse svg{width:100%;height:100%;display:block}
-
-  /* Selector */
-  .picker-label{font-size:.8rem;letter-spacing:.05em;color:var(--muted);margin-bottom:8px;display:block}
-  .select-shell{position:relative;margin-bottom:24px}
-  select{
-    width:100%;appearance:none;-webkit-appearance:none;
-    background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:14px;
-    color:var(--corona);font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:500;
-    padding:16px 46px 16px 18px;cursor:pointer;
-  }
-  select:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
-  .select-shell::after{
-    content:"";position:absolute;right:20px;top:50%;width:9px;height:9px;
-    border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
-    transform:translateY(-70%) rotate(45deg);pointer-events:none;
-  }
-
-  /* Result */
-  .result{
-    background:linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
-    border:1px solid var(--line);border-radius:20px;padding:24px 22px;margin-bottom:16px;
-  }
-  .verdict{display:flex;align-items:baseline;gap:12px;margin-bottom:4px;flex-wrap:wrap}
-  .badge{
-    font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.16em;
-    text-transform:uppercase;padding:5px 11px;border-radius:100px;font-weight:500;
-  }
-  .badge.total{background:rgba(240,168,48,0.16);color:var(--amber-soft);border:1px solid rgba(240,168,48,0.4)}
-  .badge.parcial{background:rgba(139,123,216,0.16);color:var(--violet);border:1px solid rgba(139,123,216,0.4)}
-  .verdict h2{font-family:'Fraunces',serif;font-weight:500;font-size:1.45rem;color:var(--corona)}
-  .verdict-sub{color:var(--muted);font-size:.95rem;margin-bottom:20px}
-
-  .stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-radius:14px;overflow:hidden}
-  .stat{background:var(--sky);padding:15px 16px}
-  .stat .k{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-  .stat .v{font-family:'IBM Plex Mono',monospace;font-size:1.15rem;color:var(--corona);font-weight:500}
-  .stat.wide{grid-column:1 / -1}
-
-  .travel{
-    margin-top:14px;padding:14px 16px;border-radius:12px;
-    background:rgba(139,123,216,0.1);border:1px solid rgba(139,123,216,0.25);
-    font-size:.92rem;color:var(--silver);
-  }
-  .travel b{color:var(--corona)}
-
-  /* Safety */
-  .safety{
-    display:flex;gap:14px;align-items:flex-start;
-    background:rgba(240,168,48,0.09);border:1px solid rgba(240,168,48,0.32);
-    border-radius:16px;padding:16px 18px;margin:16px 0;
-  }
-  .safety .icon{flex:none;font-size:1.3rem;line-height:1.2}
-  .safety p{font-size:.9rem;color:var(--amber-soft)}
-  .safety b{color:var(--corona)}
-
-  .cta{
-    display:block;text-align:center;text-decoration:none;
-    background:var(--amber);color:#1a1205;font-weight:600;font-size:1.02rem;
-    padding:16px;border-radius:14px;margin-bottom:10px;transition:transform .15s ease, filter .15s ease;
-  }
-  .cta:hover{filter:brightness(1.06);transform:translateY(-1px)}
-  .cta-note{text-align:center;font-size:.74rem;color:var(--muted);margin-bottom:28px}
-
-  .perseids{
-    border-top:1px solid var(--line);padding-top:22px;margin-top:8px;
-    font-size:.92rem;color:var(--muted);
-  }
-  .perseids b{color:var(--silver)}
-
-  footer{margin-top:30px;font-size:.76rem;color:var(--muted);line-height:1.6}
-  footer a{color:var(--violet)}
-
-  @media (prefers-reduced-motion: reduce){
-    *{animation:none !important;transition:none !important}
-  }
-</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Eclipse solar total de 2026 en España",
+  "description": "Primer eclipse total de Sol visible desde la península ibérica en más de un siglo. La franja de totalidad cruza España de Galicia a Baleares.",
+  "startDate": "2026-08-12T19:10:00+02:00",
+  "endDate": "2026-08-12T21:35:00+02:00",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "España (franja de totalidad: Galicia a Baleares)",
+    "address": { "@type": "PostalAddress", "addressCountry": "ES" }
+  },
+  "organizer": { "@type": "Organization", "name": "Eclipse España 2026" }
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Eclipse España 2026","url":"https://eclipsesolarespana-jonri.vercel.app/","description":"Consulta si verás el eclipse total del 12 de agosto de 2026 desde tu ciudad en España."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"¿Cuándo es el eclipse solar en España?","acceptedAnswer":{"@type":"Answer","text":"El miércoles 12 de agosto de 2026, por la tarde. La totalidad ocurre entre las 20:28 y las 20:33 aproximadamente, según la ciudad."}},
+{"@type":"Question","name":"¿Qué ciudades verán el eclipse total?","acceptedAnswer":{"@type":"Answer","text":"La franja de totalidad cruza España de oeste a este: A Coruña, Gijón, Oviedo, Santander, Bilbao, Vitoria-Gasteiz, León, Burgos, Valladolid, Zamora, Zaragoza, Teruel, Castellón, València y Palma."}},
+{"@type":"Question","name":"¿Y Madrid o Barcelona?","acceptedAnswer":{"@type":"Answer","text":"Madrid y Barcelona quedan fuera de la franja de totalidad, pero verán un eclipse parcial con una ocultación muy alta, cercana al 100%."}},
+{"@type":"Question","name":"¿Qué gafas necesito para ver el eclipse?","acceptedAnswer":{"@type":"Answer","text":"Gafas de eclipse homologadas con la norma ISO 12312-2. Las gafas de sol normales no protegen la vista y no deben usarse."}},
+{"@type":"Question","name":"¿Cuánto dura la totalidad?","acceptedAnswer":{"@type":"Answer","text":"Entre 1 y casi 2 minutos según la ciudad, siendo Oviedo el punto de mayor duración de la península."}},
+{"@type":"Question","name":"¿Cuándo fue el último eclipse total en España?","acceptedAnswer":{"@type":"Answer","text":"El último eclipse total visible desde la península ibérica fue el 30 de agosto de 1905, hace más de un siglo."}}
+]}
+</script>
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <svg class="stars" aria-hidden="true"></svg>
@@ -144,7 +71,7 @@
 
   <div class="eyebrow">Miércoles 12 · Agosto · 2026 · España</div>
   <h1>¿Verás el <em>eclipse total</em> desde tu ciudad?</h1>
-  <p class="lede">El primer eclipse total de Sol en la península en más de un siglo. Elige tu ciudad y descúbrelo.</p>
+  <p class="lede">El primer eclipse total de Sol en la península en más de un siglo. Escribe tu ciudad y descúbrelo.</p>
 
   <div class="countdown" id="countdown" aria-label="Cuenta atrás para el eclipse">
     <div class="cd-unit"><div class="cd-num" id="cd-d">–</div><div class="cd-lab">días</div></div>
@@ -170,29 +97,201 @@
         <circle id="corona" cx="100" cy="100" r="86" fill="url(#coronaG)" opacity="0"/>
         <circle id="sun" cx="100" cy="100" r="52" fill="url(#sunG)"/>
         <circle id="moon" cx="70" cy="100" r="52" fill="#0E1330"/>
-        <circle id="ring" cx="100" cy="100" r="52" fill="none" stroke="#F2EFE2" stroke-width="0" opacity="0"/>
       </svg>
     </div>
   </div>
 
-  <label class="picker-label" for="city">Tu ciudad</label>
-  <div class="select-shell">
-    <select id="city" aria-label="Selecciona tu ciudad"></select>
+  <div class="section" id="que-es">
+    <h3>¿Qué está pasando exactamente?</h3>
+    <p>La Luna se coloca justo entre la Tierra y el Sol, y su sombra más oscura —la <b>umbra</b>— traza una franja estrecha sobre la superficie terrestre. Solo quien esté dentro de esa franja ve el Sol taparse del todo; fuera de ella, en el resto de España, se ve un eclipse parcial: el Sol queda mordido pero nunca desaparece.</p>
+    <div class="rarity">
+      <div class="num">120+</div>
+      <div class="txt">años sin un eclipse total de Sol visible desde la península ibérica. El último fue en 1905. Para casi todo el mundo, esta es la única vez en la vida que lo verá sin viajar al extranjero.</div>
+    </div>
+    <p>Como España está en el extremo oriental de la franja, el eclipse llega ya muy avanzada la tarde: la totalidad coincide casi con la puesta de Sol. Eso significa un Sol muy bajo, cerca del horizonte oeste, lo que además regala colores de atardecer poco habituales durante el fenómeno.</p>
   </div>
 
-  <div class="result" id="result"></div>
+  <label class="picker-label" for="cityInput">Tu ciudad</label>
+  <div class="combo" id="combo">
+    <div class="combo-input-wrap">
+      <svg class="search-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="cityInput" type="text" autocomplete="off" spellcheck="false"
+             placeholder="Escribe tu ciudad…" role="combobox"
+             aria-expanded="false" aria-controls="cityList" aria-autocomplete="list">
+      <button class="clear-btn" id="clearBtn" aria-label="Borrar">✕</button>
+    </div>
+    <ul class="combo-list" id="cityList" role="listbox"></ul>
+  </div>
+
+  <div class="result empty" id="result">Empieza a escribir tu ciudad arriba ↑</div>
+
+  <div class="map-section">
+    <div class="map-heading">
+      <h3>La franja de totalidad</h3>
+      <a href="https://visualizadores.ign.es/eclipses/2026" target="_blank" rel="noopener">Ver mapa oficial IGN ↗</a>
+    </div>
+    <div class="mapwrap">
+      <svg viewBox="0 0 390 310" id="spainMap" role="img" aria-label="Mapa de España con la franja de totalidad del eclipse">
+        <path class="spain-outline" d="M21,44 L29,33 L51,26 L84,22 L120,22 L153,29 L197,33 L227,33 L263,44 L291,55 L318,62 L332,65 L365,98 L291,127 L277,170 L263,213 L255,238 L227,271 L180,271 L128,296 L103,253 L73,253 L70,224 L84,188 L90,152 L98,116 L56,87 L29,73 Z"/>
+        <path class="band-glow" stroke-width="46" d="M45,31 C90,20 150,15 196,34 C230,55 240,70 253,92 C258,120 262,145 266,171 C290,170 320,168 350,167"/>
+        <path class="band-core" d="M45,31 C90,20 150,15 196,34 C230,55 240,70 253,92 C258,120 262,145 266,171 C290,170 320,168 350,167"/>
+        <g id="cityDots"></g>
+      </svg>
+    </div>
+    <div class="map-legend">
+      <span><i class="band"></i> Franja de totalidad</span>
+      <span><i class="total"></i> Totalidad</span>
+      <span><i class="parcial"></i> Parcial</span>
+    </div>
+    <p class="map-note">Mapa esquemático y orientativo, no cartografía de precisión. Para la línea exacta de totalidad en tu punto concreto, consulta el <a href="https://visualizadores.ign.es/eclipses/2026" target="_blank" rel="noopener">visualizador oficial del IGN</a>.</p>
+  </div>
+
+  <div class="phases">
+    <h3>Qué vas a ver, minuto a minuto</h3>
+    <div class="phase-list">
+      <div class="phase">
+        <div class="phase-time">T menos ~75 min</div>
+        <div class="phase-title">Primer contacto</div>
+        <div class="phase-desc">La Luna empieza a "morder" el borde del Sol. A simple vista (con gafas puestas) apenas se nota nada todavía.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-time">Últimos 15-20 min</div>
+        <div class="phase-title">La luz cambia</div>
+        <div class="phase-desc">Aunque el 90% del Sol siga tapado, sigue pareciendo de día: el ojo compensa. Los últimos minutos la luz se vuelve gris metálica y baja la temperatura.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-time">Segundos antes</div>
+        <div class="phase-title">Sombras en movimiento y anillo de diamante</div>
+        <div class="phase-desc">Si hay superficies claras cerca, pueden verse "bandas de sombra" ondulando. Justo antes de la totalidad brilla un único punto de luz: el anillo de diamante. Es el momento de quitarte las gafas.</div>
+      </div>
+      <div class="phase peak">
+        <div class="phase-time">Totalidad (solo en la franja)</div>
+        <div class="phase-title">Oscuridad y corona</div>
+        <div class="phase-desc">El cielo se oscurece como en el crepúsculo, aparecen estrellas y planetas, y alrededor del disco negro de la Luna se ve la corona solar, un halo blanco plateado. Dura desde unos segundos hasta poco más de un minuto según la ciudad.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-time">Después</div>
+        <div class="phase-title">Vuelve la luz</div>
+        <div class="phase-desc">Segundo anillo de diamante, gafas puestas otra vez, y el proceso se repite al revés hasta que el Sol queda completamente libre.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="facts">
+    <h3>Datos curiosos</h3>
+    <div class="facts-grid">
+      <div class="fact-card">
+        <div class="fk">Última vez</div>
+        <div class="fv">El último eclipse total visible desde la península ibérica fue el <b>30 de agosto de 1905</b>. Después de la tríada de 2026-2028, el siguiente no llegará hasta <b>2053</b>.</div>
+      </div>
+      <div class="fact-card">
+        <div class="fk">Por qué al atardecer</div>
+        <div class="fv">El eclipse ocurre muy cerca de la puesta de Sol, así que el astro estará bajo, cerca del horizonte oeste. Eso también puede teñir la corona y el cielo de tonos anaranjados extra.</div>
+      </div>
+      <div class="fact-card">
+        <div class="fk">El punto más largo</div>
+        <div class="fv">La duración máxima de la totalidad en la península será en <b>Oviedo</b>, con algo menos de 2 minutos. La línea central del eclipse pasa muy cerca, entre Luarca (Asturias) y Peñíscola (Castellón).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="trio">
+    <h3>El Trío Ibérico: no es el único</h3>
+    <p>España va a vivir algo que no le pasará a ningún otro país: tres eclipses de Sol en tres años seguidos. Si este se te escapa por nubes, tienes más ocasiones cerca.</p>
+    <div class="trio">
+      <div class="trio-card now">
+        <div class="trio-year">2026<small>Hoy</small></div>
+        <div class="trio-body">
+          <h4>12 de agosto · Total</h4>
+          <p>La franja cruza el norte y este peninsular, de Galicia a Baleares. El que estás siguiendo en esta web.</p>
+        </div>
+      </div>
+      <div class="trio-card">
+        <div class="trio-year">2027<small>Total</small></div>
+        <div class="trio-body">
+          <h4>2 de agosto · Sur y Estrecho de Gibraltar</h4>
+          <p>La totalidad cruza Cádiz, Málaga, Ceuta y Melilla, con hasta casi 5 minutos de oscuridad: uno de los eclipses totales más largos del siglo. Desde el resto de España se verá parcial.</p>
+        </div>
+      </div>
+      <div class="trio-card">
+        <div class="trio-year">2028<small>Anular</small></div>
+        <div class="trio-body">
+          <h4>26 de enero · "Anillo de fuego"</h4>
+          <p>La Luna no llega a tapar el Sol del todo: queda un anillo de luz visible. La franja de anularidad cruza el suroeste peninsular; en el resto de España se verá parcial.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="clima">
+    <h3>El mayor riesgo: las nubes</h3>
+    <p>Agosto es, de media, el mes con menos nubosidad del año en España, con menos de un 20% de cielo cubierto en la mitad sur y el interior. Pero hay una excepción justo donde pasa la franja de totalidad: la <b>cornisa cantábrica</b> (Galicia, Asturias, Cantabria, costa vasca) mantiene nubosidad de estancamiento incluso en verano, sobre todo por las mañanas y al atardecer —justo cuando ocurre el eclipse.</p>
+    <p>Si puedes elegir dónde estar, las ciudades del interior y el este de la franja (<b>Zaragoza, Teruel, Castellón, València, Palma</b>) suelen tener de media cielos más despejados en agosto que la costa norte. No es una garantía —el tiempo de un día concreto no se sabe con semanas de antelación—, así que revisa la predicción de <a href="https://www.aemet.es" target="_blank" rel="noopener">AEMET</a> en los días previos y, si puedes, ten un plan B a un par de horas de distancia dentro de la franja.</p>
+  </div>
+
+  <div class="pinhole">
+    <h3>¿No tienes gafas todavía?</h3>
+    <p>Nunca mires directamente al Sol sin protección homologada, pero puedes seguir el eclipse de forma indirecta y totalmente segura con un proyector casero:</p>
+    <ol>
+      <li>Haz un agujero pequeño (2-3 mm) con una aguja en el centro de una cartulina.</li>
+      <li>De espaldas al Sol, sujeta la cartulina agujereada para que la luz pase a través del agujero.</li>
+      <li>Coloca una segunda cartulina blanca (o el suelo) más abajo, a modo de pantalla.</li>
+      <li>Ajusta la distancia entre ambas hasta que se vea nítida la imagen proyectada del Sol —con el mordisco de la Luna incluido— sin mirar nunca directamente al agujero ni al Sol.</li>
+    </ol>
+  </div>
 
   <div class="safety">
     <span class="icon">🕶️</span>
     <p><b>Nunca mires al Sol sin gafas de eclipse homologadas (ISO 12312-2).</b> Las gafas de sol normales no valen. Solo dentro de la franja de totalidad, y solo durante los segundos en que el Sol quede 100% cubierto, es seguro quitárselas.</p>
   </div>
 
-  <a class="cta" href="#" id="glassesCta" target="_blank" rel="noopener">Comprar gafas de eclipse homologadas →</a>
-  <p class="cta-note">Enlace de afiliado · aún de ejemplo — aquí irá tu enlace real</p>
+  <a class="cta" href="https://www.amazon.es/s?k=gafas+eclipse+solar+ISO+12312-2" target="_blank" rel="noopener" onclick="if(typeof gtag==='function'){gtag('event','click_glasses_cta');}">Buscar gafas de eclipse homologadas en Amazon →</a>
+  <p class="cta-note">Verifica siempre que el envoltorio indique la norma ISO 12312-2</p>
 
   <div class="perseids">
     <b>Bonus:</b> esa misma noche coincide con el máximo de las Perseidas. Si te quedas en el sitio de observación tras el eclipse, puedes rematar la noche con lluvia de estrellas.
   </div>
+
+<div class="share-row">
+  <a class="share-btn" href="https://wa.me/?text=%C2%BFVer%C3%A1s%20el%20eclipse%20total%20desde%20tu%20ciudad%3F%20https%3A%2F%2Feclipsesolarespana-jonri.vercel.app%2F" target="_blank" rel="noopener">Compartir por WhatsApp</a>
+  <button class="share-btn" onclick="navigator.clipboard.writeText(location.href);this.textContent='¡Enlace copiado!'">Copiar enlace</button>
+</div>
+
+<div class="section" id="ciudades">
+  <h3>Consulta cualquier ciudad de la franja</h3>
+  <p>Toca una ciudad para ver su página con hora exacta, duración y consejos.</p>
+<div class="city-grid">
+  <a href="/a-coruna.html">A Coruña</a>
+  <a href="/gijon.html">Gijón</a>
+  <a href="/oviedo.html">Oviedo</a>
+  <a href="/santander.html">Santander</a>
+  <a href="/bilbao.html">Bilbao</a>
+  <a href="/vitoria-gasteiz.html">Vitoria-Gasteiz</a>
+  <a href="/leon.html">León</a>
+  <a href="/burgos.html">Burgos</a>
+  <a href="/valladolid.html">Valladolid</a>
+  <a href="/zamora.html">Zamora</a>
+  <a href="/zaragoza.html">Zaragoza</a>
+  <a href="/teruel.html">Teruel</a>
+  <a href="/castellon.html">Castellón</a>
+  <a href="/valencia.html">València</a>
+  <a href="/palma.html">Palma</a>
+  <a href="/madrid.html" class="parcial-chip">Madrid</a>
+  <a href="/barcelona.html" class="parcial-chip">Barcelona</a>
+  <a href="/sevilla.html" class="parcial-chip">Sevilla</a>
+  <a href="/malaga.html" class="parcial-chip">Málaga</a>
+</div>
+</div>
+
+<div class="mini-faq">
+  <h3>Preguntas frecuentes</h3>
+  <div class="qa"><div class="q">¿Cuándo es el eclipse solar en España?</div><div class="a">El miércoles 12 de agosto de 2026 por la tarde. La totalidad ocurre entre las 20:28 y las 20:33 aproximadamente, según la ciudad.</div></div>
+  <div class="qa"><div class="q">¿Qué ciudades verán el eclipse total?</div><div class="a">La franja cruza España de oeste a este: A Coruña, Gijón, Oviedo, Santander, Bilbao, Vitoria-Gasteiz, León, Burgos, Valladolid, Zamora, Zaragoza, Teruel, Castellón, València y Palma.</div></div>
+  <div class="qa"><div class="q">¿Y Madrid o Barcelona?</div><div class="a">Quedan fuera de la franja de totalidad, pero verán un eclipse parcial con ocultación muy alta, cercana al 100%.</div></div>
+  <div class="qa"><div class="q">¿Qué gafas necesito?</div><div class="a">Gafas de eclipse homologadas con la norma ISO 12312-2. Las gafas de sol normales no valen ni protegen la vista.</div></div>
+  <div class="qa"><div class="q">¿Cuánto dura la totalidad?</div><div class="a">Entre 1 y casi 2 minutos según la ciudad; Oviedo tiene la mayor duración de la península.</div></div>
+  <div class="qa"><div class="q">¿Cuándo fue el último eclipse total en España?</div><div class="a">El 30 de agosto de 1905, hace más de un siglo.</div></div>
+</div>
 
   <footer>
     Horarios y altura del Sol aproximados, para orientarte. Confirma los datos exactos de tu localidad en el
@@ -200,100 +299,185 @@
     Desde España el eclipse ocurre muy cerca de la puesta de Sol, así que necesitas buena vista hacia el <b>oeste</b>.
   </footer>
 
+  <div class="sitewide"><b>Todas las ciudades</b><a href="/a-coruna.html">A Coruña</a> · <a href="/gijon.html">Gijón</a> · <a href="/oviedo.html">Oviedo</a> · <a href="/santander.html">Santander</a> · <a href="/bilbao.html">Bilbao</a> · <a href="/vitoria-gasteiz.html">Vitoria-Gasteiz</a> · <a href="/leon.html">León</a> · <a href="/burgos.html">Burgos</a> · <a href="/valladolid.html">Valladolid</a> · <a href="/zamora.html">Zamora</a> · <a href="/zaragoza.html">Zaragoza</a> · <a href="/teruel.html">Teruel</a> · <a href="/castellon.html">Castellón</a> · <a href="/valencia.html">València</a> · <a href="/palma.html">Palma</a> · <a href="/madrid.html">Madrid</a> · <a href="/barcelona.html">Barcelona</a> · <a href="/sevilla.html">Sevilla</a> · <a href="/malaga.html">Málaga</a></div>
 </div>
 
 <script>
   // ---- Datos de ciudades (aproximados; verificar en IGN antes de publicar) ----
+  // x,y = coordenadas en el viewBox del mapa esquemático (0 0 390 310)
   const cities = [
-    {n:"A Coruña", t:"total", max:"20:28", dur:"~1 min 16 s", alt:"12°"},
-    {n:"Gijón",    t:"total", max:"20:29", dur:"~1 min",      alt:"11°"},
-    {n:"Oviedo",   t:"total", max:"20:29", dur:"~1 min",      alt:"11°"},
-    {n:"Santander",t:"total", max:"20:30", dur:"~1 min",      alt:"10°"},
-    {n:"Bilbao",   t:"total", max:"20:30", dur:"~1 min 30 s", alt:"9°"},
-    {n:"Vitoria-Gasteiz", t:"total", max:"20:30", dur:"~1 min", alt:"9°"},
-    {n:"León",     t:"total", max:"20:29", dur:"~1 min",      alt:"11°"},
-    {n:"Burgos",   t:"total", max:"20:30", dur:"~1 min",      alt:"10°"},
-    {n:"Valladolid",t:"total",max:"20:29", dur:"~1 min",      alt:"10°"},
-    {n:"Zamora",   t:"total", max:"20:28", dur:"~1 min 17 s", alt:"11°"},
-    {n:"Zaragoza", t:"total", max:"20:31", dur:"~1 min 30 s", alt:"8°"},
-    {n:"Teruel",   t:"total", max:"20:31", dur:"~1 min",      alt:"7°"},
-    {n:"Castellón",t:"total", max:"20:32", dur:"~1 min",      alt:"6°"},
-    {n:"València", t:"total", max:"20:32", dur:"~1 min 30 s", alt:"6°"},
-    {n:"Palma",    t:"total", max:"20:33", dur:"~1 min 30 s", alt:"5°"},
-    {n:"Madrid",   t:"parcial", pct:"~99,9%", max:"20:30", near:"Ávila o Segovia (~1 h)"},
-    {n:"Barcelona",t:"parcial", pct:"muy alta", max:"20:32", near:"Lleida o Tarragona (~1 h)"},
-    {n:"Sevilla",  t:"parcial", pct:"parcial", max:"20:26", near:"la franja queda lejos"},
-    {n:"Málaga",   t:"parcial", pct:"parcial", max:"20:27", near:"la franja queda lejos"},
+    {n:"A Coruña", t:"total", max:"20:28", dur:"~1 min 16 s", alt:"12°", x:45,  y:31, slug:"a-coruna"},
+    {n:"Gijón",    t:"total", max:"20:29", dur:"~1 min",      alt:"11°", x:121, y:24, slug:"gijon"},
+    {n:"Oviedo",   t:"total", max:"20:29", dur:"~1 min",      alt:"11°", x:116, y:31, slug:"oviedo"},
+    {n:"Santander",t:"total", max:"20:30", dur:"~1 min",      alt:"10°", x:172, y:27, slug:"santander"},
+    {n:"Bilbao",   t:"total", max:"20:30", dur:"~1 min 30 s", alt:"9°",  x:196, y:34, slug:"bilbao"},
+    {n:"Vitoria-Gasteiz", t:"total", max:"20:30", dur:"~1 min", alt:"9°", x:203, y:49, slug:"vitoria-gasteiz"},
+    {n:"León",     t:"total", max:"20:29", dur:"~1 min",      alt:"11°", x:123, y:58, slug:"leon"},
+    {n:"Burgos",   t:"total", max:"20:30", dur:"~1 min",      alt:"10°", x:175, y:68, slug:"burgos"},
+    {n:"Valladolid",t:"total",max:"20:29", dur:"~1 min",      alt:"10°", x:147, y:92, slug:"valladolid"},
+    {n:"Zamora",   t:"total", max:"20:28", dur:"~1 min 17 s", alt:"11°", x:118, y:98, slug:"zamora"},
+    {n:"Zaragoza", t:"total", max:"20:31", dur:"~1 min 30 s", alt:"8°",  x:253, y:92, slug:"zaragoza"},
+    {n:"Teruel",   t:"total", max:"20:31", dur:"~1 min",      alt:"7°",  x:246, y:140, slug:"teruel"},
+    {n:"Castellón",t:"total", max:"20:32", dur:"~1 min",      alt:"6°",  x:276, y:152, slug:"castellon"},
+    {n:"València", t:"total", max:"20:32", dur:"~1 min 30 s", alt:"6°",  x:266, y:171, slug:"valencia"},
+    {n:"Palma",    t:"total", max:"20:33", dur:"~1 min 30 s", alt:"5°",  x:350, y:167, slug:"palma"},
+    {n:"Madrid",   t:"parcial", pct:"~99,9%", max:"20:30", near:"Ávila o Segovia (~1 h)", x:175, y:137, slug:"madrid"},
+    {n:"Barcelona",t:"parcial", pct:"muy alta", max:"20:32", near:"Lleida o Tarragona (~1 h)", x:337, y:102, slug:"barcelona"},
+    {n:"Sevilla",  t:"parcial", pct:"parcial", max:"20:26", near:"la franja queda lejos", x:112, y:246, slug:"sevilla"},
+    {n:"Málaga",   t:"parcial", pct:"parcial", max:"20:27", near:"la franja queda lejos", x:155, y:270, slug:"malaga"},
   ].sort((a,b)=>a.n.localeCompare(b.n,'es'));
 
-  // ---- Rellenar el selector ----
-  const sel = document.getElementById('city');
-  cities.forEach((c,i)=>{
-    const o=document.createElement('option');
-    o.value=i; o.textContent=c.n; sel.appendChild(o);
-  });
+  const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 
-  // ---- SVG del eclipse ----
-  const moon=document.getElementById('moon');
-  const corona=document.getElementById('corona');
-  const ring=document.getElementById('ring');
+  const input   = document.getElementById('cityInput');
+  const list    = document.getElementById('cityList');
+  const clearBtn= document.getElementById('clearBtn');
+  const result  = document.getElementById('result');
+  const moon    = document.getElementById('moon');
+  const corona  = document.getElementById('corona');
+  const dotsG   = document.getElementById('cityDots');
+  let activeIdx = -1;
+  let filtered  = [];
+  let selectedCity = null;
+
   function drawEclipse(isTotal){
-    if(isTotal){
-      moon.setAttribute('cx',100);
-      corona.setAttribute('opacity',1);
-      ring.setAttribute('opacity',0);
-    }else{
-      moon.setAttribute('cx',72);      // eclipse muy avanzado pero no total
-      corona.setAttribute('opacity',0);
-      ring.setAttribute('opacity',0);
+    moon.setAttribute('cx', isTotal ? 100 : 72);
+    corona.setAttribute('opacity', isTotal ? 1 : 0);
+  }
+
+  function highlight(name, q){
+    if(!q) return name;
+    const i = norm(name).indexOf(norm(q));
+    if(i<0) return name;
+    return name.slice(0,i)+'<mark>'+name.slice(i,i+q.length)+'</mark>'+name.slice(i+q.length);
+  }
+
+  function openList(){ list.classList.add('open'); input.setAttribute('aria-expanded','true'); }
+  function closeList(){ list.classList.remove('open'); input.setAttribute('aria-expanded','false'); activeIdx=-1; }
+
+  function renderList(q){
+    filtered = cities.filter(c => norm(c.n).includes(norm(q)));
+    list.innerHTML = '';
+    if(filtered.length===0){
+      list.innerHTML = `<li class="combo-empty">No tenemos esa localidad todavía.<br>Consulta el <a href="https://eclipses.ign.es/eclipse-total-sol-de-12-de-agosto-2026.html" target="_blank" rel="noopener">IGN</a> para tu punto exacto.</li>`;
+      openList(); return;
+    }
+    filtered.forEach((c,i)=>{
+      const li=document.createElement('li');
+      li.className='combo-item'+(i===activeIdx?' active':'');
+      li.setAttribute('role','option');
+      li.innerHTML = `<span>${highlight(c.n,q)}</span><span class="tag ${c.t}">${c.t}</span>`;
+      li.addEventListener('mousedown', e=>{ e.preventDefault(); select(c); });
+      list.appendChild(li);
+    });
+    openList();
+  }
+
+  function select(c){
+    input.value = c.n;
+    clearBtn.classList.add('show');
+    closeList();
+    renderResult(c);
+    if (typeof gtag === 'function') {
+      gtag('event', 'select_city', { city: c.n, eclipse_type: c.t });
     }
   }
 
-  // ---- Render del resultado ----
-  const result=document.getElementById('result');
-  function render(i){
-    const c=cities[i];
-    const isTotal=c.t==='total';
+  function renderResult(c){
+    selectedCity = c.n;
+    const isTotal = c.t==='total';
     drawEclipse(isTotal);
-    let html='';
+    result.classList.remove('empty');
     if(isTotal){
-      html=`
-        <div class="verdict">
-          <span class="badge total">Totalidad</span>
-          <h2>Sí — desde ${c.n} verás la totalidad</h2>
-        </div>
+      result.innerHTML = `
+        <div class="verdict"><span class="badge total">Totalidad</span>
+          <h2>Sí — desde ${c.n} verás la totalidad</h2></div>
         <p class="verdict-sub">Estás dentro de la franja. El Sol se ocultará por completo unos segundos: cielo oscuro, corona visible y estrellas de día.</p>
         <div class="stats">
           <div class="stat"><div class="k">Máximo (aprox.)</div><div class="v">${c.max}</div></div>
           <div class="stat"><div class="k">Dura la totalidad</div><div class="v">${c.dur}</div></div>
           <div class="stat"><div class="k">Altura del Sol</div><div class="v">${c.alt}</div></div>
           <div class="stat"><div class="k">Hacia dónde mirar</div><div class="v">Oeste ↓</div></div>
-        </div>`;
-    }else{
-      html=`
-        <div class="verdict">
-          <span class="badge parcial">Parcial</span>
-          <h2>Casi — desde ${c.n} será parcial</h2>
         </div>
+        <p style="margin-top:14px;text-align:center"><a href="/${c.slug}.html" style="color:var(--violet);font-size:.85rem">Página dedicada a ${c.n} →</a></p>`;
+    }else{
+      result.innerHTML = `
+        <div class="verdict"><span class="badge parcial">Parcial</span>
+          <h2>Casi — desde ${c.n} será parcial</h2></div>
         <p class="verdict-sub">El Sol no llega a taparse del todo, así que te pierdes la corona y la oscuridad. Ocultación: ${c.pct}.</p>
         <div class="stats">
           <div class="stat"><div class="k">Máximo (aprox.)</div><div class="v">${c.max}</div></div>
           <div class="stat"><div class="k">Ocultación</div><div class="v">${c.pct}</div></div>
         </div>
-        <div class="travel">Para vivir la <b>totalidad</b> merece la pena desplazarse a la franja: ${c.near}.</div>`;
+        <div class="travel">Para vivir la <b>totalidad</b> merece la pena desplazarse a la franja: ${c.near}.</div>
+        <p style="margin-top:14px;text-align:center"><a href="/${c.slug}.html" style="color:var(--violet);font-size:.85rem">Página dedicada a ${c.n} →</a></p>`;
     }
-    result.innerHTML=html;
+    updateMapSelection();
   }
-  sel.addEventListener('change',()=>render(sel.value));
-  // Arranca en Bilbao si existe, si no la primera
-  const start=cities.findIndex(c=>c.n==='Bilbao');
-  sel.value = start>=0?start:0;
-  render(sel.value);
+
+  input.addEventListener('input', ()=>{
+    clearBtn.classList.toggle('show', input.value.length>0);
+    activeIdx=-1;
+    renderList(input.value);
+  });
+  input.addEventListener('focus', ()=> renderList(input.value));
+  input.addEventListener('blur', ()=> setTimeout(closeList,120));
+  input.addEventListener('keydown', e=>{
+    if(!list.classList.contains('open')) return;
+    if(e.key==='ArrowDown'){ e.preventDefault(); activeIdx=Math.min(activeIdx+1,filtered.length-1); renderList(input.value); scrollActive(); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); activeIdx=Math.max(activeIdx-1,0); renderList(input.value); scrollActive(); }
+    else if(e.key==='Enter'){ e.preventDefault(); if(filtered[activeIdx]) select(filtered[activeIdx]); else if(filtered.length===1) select(filtered[0]); }
+    else if(e.key==='Escape'){ closeList(); }
+  });
+  function scrollActive(){
+    const el=list.querySelectorAll('.combo-item')[activeIdx];
+    if(el) el.scrollIntoView({block:'nearest'});
+  }
+  clearBtn.addEventListener('click', ()=>{
+    input.value=''; clearBtn.classList.remove('show'); closeList();
+    result.className='result empty'; result.textContent='Empieza a escribir tu ciudad arriba ↑';
+    drawEclipse(false); selectedCity=null; updateMapSelection(); input.focus();
+  });
+  document.addEventListener('click', e=>{ if(!document.getElementById('combo').contains(e.target)) closeList(); });
+
+  // ---- Mapa: puntos de ciudad ----
+  const NS = 'http://www.w3.org/2000/svg';
+  cities.forEach(c=>{
+    const g=document.createElementNS(NS,'g');
+    g.setAttribute('class','city-dot '+c.t);
+    g.setAttribute('data-city', c.n);
+    g.setAttribute('tabindex','0');
+    g.setAttribute('role','button');
+    g.setAttribute('aria-label', c.n);
+
+    const halo=document.createElementNS(NS,'circle');
+    halo.setAttribute('class','halo');
+    halo.setAttribute('cx', c.x); halo.setAttribute('cy', c.y); halo.setAttribute('r', 5);
+    g.appendChild(halo);
+
+    const core=document.createElementNS(NS,'circle');
+    core.setAttribute('class','core');
+    core.setAttribute('cx', c.x); core.setAttribute('cy', c.y); core.setAttribute('r', 3.6);
+    g.appendChild(core);
+
+    g.addEventListener('click', ()=> select(c));
+    g.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); select(c); } });
+    dotsG.appendChild(g);
+  });
+  function updateMapSelection(){
+    dotsG.querySelectorAll('.city-dot').forEach(g=>{
+      g.classList.toggle('selected', g.getAttribute('data-city')===selectedCity);
+    });
+  }
+
+  // Arranque: precargar Bilbao para que la página no esté vacía
+  const start = cities.find(c=>c.n==='Bilbao');
+  if(start) select(start);
 
   // ---- Cuenta atrás (12 ago 2026, 20:28 CEST = 18:28 UTC) ----
   const target=new Date('2026-08-12T18:28:00Z').getTime();
   function tick(){
-    const now=Date.now();let d=Math.max(0,target-now);
+    let d=Math.max(0,target-Date.now());
     const days=Math.floor(d/864e5);d-=days*864e5;
     const h=Math.floor(d/36e5);d-=h*36e5;
     const m=Math.floor(d/6e4);d-=m*6e4;
@@ -307,14 +491,12 @@
 
   // ---- Estrellas de fondo ----
   const starsSvg=document.querySelector('.stars');
-  const W=window.innerWidth,H=window.innerHeight;
-  let s='';
+  const W=window.innerWidth,H=window.innerHeight;let s='';
   for(let i=0;i<70;i++){
     const x=Math.random()*W,y=Math.random()*H*0.75,r=Math.random()*1.1+0.3,o=Math.random()*0.6+0.2;
     s+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(1)}" fill="#E8ECF4" opacity="${o.toFixed(2)}"/>`;
   }
-  starsSvg.innerHTML=s;
-  starsSvg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  starsSvg.innerHTML=s;starsSvg.setAttribute('viewBox',`0 0 ${W} ${H}`);
 </script>
 </body>
 </html>
